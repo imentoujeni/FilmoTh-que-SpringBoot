@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>ajout de film</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<a class="navbar-brand" href="#">Films For All</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="http://localhost:8080/film/all">Gestion des films </a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" href="http://localhost:8080/acteur/all">Gestion des actrues </a>
+			</li>
+		</ul>
+	</div>
+</nav>
+<div class="container">
+	<br>
+	<div class="alert alert-danger" th:if="${msgerror}">
+		<div th:text="${msgerror}"></div>
+	</div>
+	<h1>saisir un nouveau film</h1>
+	<form action="/film/add" method="post" enctype="multipart/form-data">
+		<p>
+			<label class="form-Label ">Photos: </label>
+			<input type="file" name="file" accept="image/png, image/jpeg" class="form-control" />
+		</p>
+	<p>
+		<label for = "title" class="form-label">Titre de Film</label>
+		<input type="text" name="title" id="title" th:value="${title}" class="form-control" required pattern="^[A-Z][a-zA-Z]*$">
+	</p>
+	<p>
+		<label for = "description" class="form-label">Description</label>
+		<textarea rows="5" name="description" th:text="${description}" class="form-control" th:attr="minlength=10"></textarea>
+	</p>
+	<p>
+		<label for = "anneeparution" class="form-label">Annee de Parution</label>
+		<input type="number" name="anneeparution" th:value="${anneeparution}" id="anneeparution" class="form-control" min="1940" th:max="${currentYear}" required>
+	</p>	
+	<p>
+		<label for = "categorie" class="form-label">Categorie</label>
+		<select name="categorie" class="form-select">
+			<option th:each="cat: ${categories}" th:value="${cat.id}" th:text="${cat.nom}"
+					th:selected="${categories.contains(categorie)}">
+		</select>
+	</p>
+		<p>
+			<label for = "acteurs" class="form-label">Acteurs</label>
+			<select name="acteurs" id="acteurs" multiple="multiple" required>
+				<option th:each="a : ${acteurs}" th:value="${a.id}" th:text="${a.nom}"
+						th:selected="${acteurs.contains(acteur)}">
+			</select>
+		</p>
+	<p>
+	<input type="submit" class="btn btn-outline-primary" value="Ajouter">
+	</p>
+	</form>
+</div>
+</body>
+</html>

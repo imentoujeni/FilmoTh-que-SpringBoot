@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Les films de la catégorie [[${nomCategorie}]]</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="http://localhost:8080/film/all">Login </a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<div class="container mt-4">
+    <h1>Les films de la catégorie [[${nomCategorie}]]</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Année de parution</th>
+            <th>Description</th>
+            <th>Détails</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="f : ${films}">
+            <td th:text="${f.title}"></td>
+            <td th:text="${f.anneeparution}"></td>
+            <td th:text="${f.description}"></td>
+            <td><a th:href="@{/details/{id} (id=${f.id})}">Voir les détails</a></td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
